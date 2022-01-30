@@ -1,0 +1,77 @@
+.dropdown-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  
+}
+
+.dropdown {
+  display: flex;
+  
+}
+
+.btn {
+  border-radius: 10px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  width: 200px;
+  box-shadow: none;
+}
+
+.btn:focus {
+  box-shadow: none;
+}
+
+.dropdown-menu {
+  border-radius: 10px;
+  width: 200px;
+  
+}
+
+.gallery {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+}
+
+.card {
+  background-color: #1a1c1e;
+  border-radius: 20px;
+  overflow: hidden;
+  color: #fff;
+}
+
+.card-body {
+  padding: 10px;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.id {
+  color: #a1a5b0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.priceContainer {
+  display: flex;
+}
+
+.priceContainer img {
+  height: 25px;
+  width: 30px;
+}
+
+.price {
+  margin-left: 5px;
+  font-weight: 600;
+}
+
+.card-link {
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+}

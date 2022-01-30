@@ -1,0 +1,124 @@
+<%- include("templates/header", {webTitle: 'Categories'}) %>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-bl">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">
+        <img
+          src="/img/nftHouse-logo-2.png"
+          alt=""
+          width="200"
+          class="d-inline-block align-text-top"
+        />
+      </a>
+      <button
+        class="navbar-toggler bg-light"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <form class="d-flex">
+          <div class="searchIconContainer">
+            <img src="/img/search.png" alt="" />
+          </div>
+          <input
+            class="form-control border-0"
+            type="search"
+            placeholder="Collection, item or user..."
+            aria-label="Search"
+          />
+        </form>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link text-white" aria-current="page" href="#"
+              >Drops</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="#"
+              >Marketplace</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="#">Create</a>
+          </li>
+          <div class="headerActions">
+            <button class="themeSwitchContainer">
+              <img src="/img/theme-switch.png" alt="" />
+            </button>
+          </div>
+
+          <button class="cartButton">CART</button>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="dropdown-container">
+    <div class="dropdown">
+        
+        <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          All NFTs
+        </button>
+          
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li>
+                    <a class="dropdown-item" href="/category/art">Art</a>
+              </li>
+  
+              <li>
+                    <a class="dropdown-item" href="/category/collectibles">Collectibles</a>
+              </li>
+  
+              <li>
+                    <a class="dropdown-item" href="/category/photography">Photography</a>
+              </li>
+            </ul>
+          
+        <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            Sort by
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="#">Price: Low to High</a></li>
+            <li><a class="dropdown-item" href="#">Price: High to Low</a></li>
+        </ul>
+        
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class=""></div>
+    <div class="gallery">
+      <% if(categoryById != '') { %>
+        <% categoryById.forEach(function(Nft, index) { %>
+          <div class="card">
+                <img src="<%= Nft.image %>" class="card-img-top" alt="" />
+                <div class="card-body">
+                  <h5 class="card-title"></h5>
+                </div>
+                <div class="card-body">
+                  <div class="id">.#<%= Nft.id %></div>
+                </div>
+                <div class="card-body">
+                  <div class="priceContainer">
+                    <img src="/img/eth.png" alt="" />
+                    <div class="price"><%= Nft.price %></div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <a href="#" class="card-link">Buy now</a>
+                </div>
+          </div>
+        <% }) %>
+      <% } %>
+    </div>
+</div>
+
+<%- include("templates/footer") %> 
