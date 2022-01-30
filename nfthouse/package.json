@@ -16,5 +16,9 @@
     "http-errors": "~1.6.3",
     "mongoose": "^6.1.7",
     "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.18.0",
+    "standard": "^16.0.4"
   }
 }
