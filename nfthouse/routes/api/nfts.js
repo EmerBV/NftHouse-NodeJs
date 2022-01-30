@@ -1,158 +1,152 @@
-"use strict";
+'use strict'
 
 /**
  * APP ROUTES (ROUTER)
 */
 
-const express = require("express");
-const createError = require("http-errors");
-const Nft = require("../../models/Nft");
+const express = require('express')
+const createError = require('http-errors')
+const Nft = require('../../models/Nft')
 
-const { imgRoute } = require('../../lib/utils');
+const { imgRoute } = require('../../lib/utils')
 
-const router = express.Router();
-
+const router = express.Router()
 
 // GET /api/nfts
 // Devuelve una lista de nfts
-router.get("/", async (req, res, next) => {
-
+router.get('/', async (req, res, next) => {
   try {
-    const name = req.query.name;
-    const price = req.query.price;
-    const category = req.query.category;
-    const skip = req.query.skip;
-    const limit = req.query.limit;
-    const select = req.query.select; // campos que quiero
-    const sort = req.query.sort;
+    const name = req.query.name
+    const price = req.query.price
+    const category = req.query.category
+    const skip = req.query.skip
+    const limit = req.query.limit
+    const select = req.query.select // campos que quiero
+    const sort = req.query.sort
 
-    const filtros = {};
+    const filtros = {}
 
-    if (name) filtros.name = name;
+    if (name) filtros.name = name
 
-    if (price) filtros.price = price;
-    
-    if (category) filtros.category = category;
-    
+    if (price) filtros.price = price
 
-    const nfts = await Nft.lista(filtros, skip, limit, select, sort);
+    if (category) filtros.category = category
 
-    for(let Nft of nfts) {
-      if(Nft.image) {
-        Nft.image = imgRoute(req, Nft.image);
+    const nfts = await Nft.lista(filtros, skip, limit, select, sort)
+
+    for (const Nft of nfts) {
+      if (Nft.image) {
+        Nft.image = imgRoute(req, Nft.image)
       }
     }
 
-    res.json({ results: nfts });
+    res.json({ results: nfts })
   } catch (err) {
-    next(err);
+    next(err)
   }
-});
-
+})
 
 // GET /api/nfts/category/:id
 // Devuelve categorías por Id
-router.get("/category/:id", async (req, res, next) => {
+router.get('/category/:id', async (req, res, next) => {
   try {
-    const categoryId = req.params.id;
+    const categoryId = req.params.id
 
-    const categoryById = await Nft.find({ category: categoryId  });
+    const categoryById = await Nft.find({ category: categoryId })
 
-    for(let Nft of categoryById) {
-      if(Nft.image) {
-        Nft.image = imgRoute(req, Nft.image);
+    for (const Nft of categoryById) {
+      if (Nft.image) {
+        Nft.image = imgRoute(req, Nft.image)
       }
     }
 
     if (!categoryById) {
-      next(createError(404));
-      return;
+      next(createError(404))
+      return
     }
 
-    res.json({ result: categoryById });
+    res.json({ result: categoryById })
   } catch (err) {
-    next(err);
+    next(err)
   }
-});
-
+})
 
 // GET /api/nfts/:id
 // Devuelve un nft
-router.get("/:id", async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   try {
-    const id = req.params.id;
+    const id = req.params.id
 
-    const nft = await Nft.findOne({ _id: id });
+    const nft = await Nft.findOne({ _id: id })
 
     if (!nft) {
-      next(createError(404));
-      return;
+      next(createError(404))
+      return
     }
 
-    res.json({ result: nft });
+    res.json({ result: nft })
   } catch (err) {
-    next(err);
+    next(err)
   }
-});
+})
 
 // POST /api/nfts
 // Crea un nuevo nft
-router.post("/", async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
-    const nftData = req.body;
+    const nftData = req.body
 
     // creo un objeto de nft EN MEMORIA
-    const nft = new Nft(nftData);
+    const nft = new Nft(nftData)
 
-    const nftGuardado = await nft.save();
+    const nftGuardado = await nft.save()
 
-    res.status(201).json({ result: nftGuardado });
+    res.status(201).json({ result: nftGuardado })
   } catch (error) {
-    next(err);
+    next(err)
   }
-});
+})
 
 // DELETE /api/nfts/:id
 // Elimina un nft
-router.delete("/:id", async (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
   try {
-    const id = req.params.id;
+    const id = req.params.id
 
-    await Nft.deleteOne({ _id: id });
+    await Nft.deleteOne({ _id: id })
 
-    res.json();
+    res.json()
   } catch (error) {
-    next(err);
+    next(err)
   }
-});
+})
 
 // PUT /api/nfts:id
 // Actualizar un nft
-router.put("/:id", async (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
   try {
-    const id = req.params.id;
-    const nftData = req.body;
+    const id = req.params.id
+    const nftData = req.body
 
-    let nftActualizado;
+    let nftActualizado
     try {
       nftActualizado = await Nft.findByIdAndUpdate(id, nftData, {
-        new: true, // esta opción sirve para que nos devuelva el estado final del documento
-      });
+        new: true // esta opción sirve para que nos devuelva el estado final del documento
+      })
     } catch (err) {
-      next(createError(422, "invalid id"));
-      return;
+      next(createError(422, 'invalid id'))
+      return
     }
 
     if (!nftActualizado) {
-      next(createError(404));
-      return;
+      next(createError(404))
+      return
     }
 
-    res.json({ result: nftActualizado });
+    res.json({ result: nftActualizado })
   } catch (error) {
-    next(err);
+    next(err)
   }
-});
+})
 
-
-module.exports = router;
+module.exports = router
