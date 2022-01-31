@@ -6,7 +6,6 @@
 
 const express = require('express')
 const createError = require('http-errors')
-const { sleep } = require('../lib/utils')
 const router = express.Router()
 const Nft = require('../models/Nft')
 
@@ -66,16 +65,6 @@ router.get('/category/:id', async (req, res, next) => {
     }
 
     res.render('categories', { title: 'Categories', categoryById: categoryById })
-  } catch (err) {
-    next(err)
-  }
-})
-
-// para gestionar los errores
-router.get('/espera', async (req, res, next) => {
-  try {
-    await sleep(3000)
-    res.send('pasaron los 3 segundos')
   } catch (err) {
     next(err)
   }
