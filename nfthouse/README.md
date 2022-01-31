@@ -1,9 +1,30 @@
 # NftHouse
 
+Development of an API that will use the server of a platform for the sale of NFTs (Non-Fungible Tokens).
+
+The API will provide the items that are for sale and will allow you to filter those items by their Id, price or category.
+
+It will also allow listing new items or removing them from the platform.
+
+
+## API usage methods
+
+To begin we must locate ourselves in the root folder of the project:
+
+```sh
+cd nfthouse
+```
+
 To start the application use:
 
 ```sh
 npm install
+```
+
+Next we need to load our database:
+
+```sh
+nodemon initDB.js
 ```
 
 In production:
@@ -18,22 +39,35 @@ In development:
 npm run dev
 ```
 
-## Métodos del API
 
-El API se accede en /api
+## API access via routes
 
-Lista de nfts:
+List of all NFTs:
 
-- /api/nfts
+- http://localhost:3000/api/nfts
 
-Buscar un nft por ID:
+Find an NFTs by ID:
 
-- /api/nfts/:id
+- http://localhost:3000/api/nfts/id
 
-Crear un nft:
+Create an NFT sale ad:
 
 - POST /api/nfts
 
-Eliminar un nft:
+Delete an NFT:
 
 - DELETE /api/nfts/:id
+
+## Examples of a request with filters
+
+By price range and category:
+
+http://localhost:3000/?sort=name&lowestPrice=0.1&category=art&limit=3
+
+Search by category:
+
+http://localhost:3000/category/photography
+
+## Front-end requests
+
+We can only filter the items by category by clicking on the drop-down button

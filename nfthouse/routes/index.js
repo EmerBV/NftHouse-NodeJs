@@ -17,6 +17,8 @@ router.get('/', async function (req, res, next) {
   try {
     const name = req.query.name
     const price = req.query.price
+    const lowestPrice = req.query.lowestPrice
+    const highestPrice = req.query.highestPrice
     const category = req.query.category
     const skip = req.query.skip
     const limit = req.query.limit
@@ -28,6 +30,12 @@ router.get('/', async function (req, res, next) {
     if (name) filtros.name = name
 
     if (price) filtros.price = price
+
+    if (lowestPrice) filtros.price = { $gte: lowestPrice }
+
+    if (highestPrice) filtros.price = { $lte: highestPrice }
+
+    if (highestPrice && lowestPrice) filtros.price = { $gte: lowestPrice, $lte: highestPrice }
 
     if (category) filtros.category = category
 
